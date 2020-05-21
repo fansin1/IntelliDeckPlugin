@@ -19,21 +19,8 @@ public abstract class PluginAPI {
         return commands;
     }
 
-    public boolean executeCommand(String commandName) {
-        List<Command> result = commands
-                .stream()
-                .filter(command -> commandName.equals(command.getName()))
-                .collect(Collectors.toList());
-        if (result.size() == 0) {
-            //TODO notify user in ide(0)
-            return false;
-        } else if (result.size() > 0) {
-            //TODO notify user in ide(are you ahereli tam)
-            return false;
-        } else {
-            result.get(0).run();
-            return true;
-        }
+    public void executeCommand(Command command) {
+        command.run();
     }
 
 
