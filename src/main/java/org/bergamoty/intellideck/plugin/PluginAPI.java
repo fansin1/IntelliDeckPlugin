@@ -11,8 +11,12 @@ public abstract class PluginAPI {
     private List<Command> commands;
     private Notifier notifier;
 
-    public void setCommands(List<Command> commands){
+    public void setCommands(List<Command> commands) {
         this.commands = commands;
+    }
+
+    public List<Command> getCommands() {
+        return commands;
     }
 
     public boolean executeCommand(String commandName) {
@@ -32,9 +36,6 @@ public abstract class PluginAPI {
         }
     }
 
-    public List<Command> getCommands() {
-        return commands;
-    }
 
     public void onConnected() {
         //TODO notify user in ide(success)
