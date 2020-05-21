@@ -8,28 +8,28 @@ import java.util.stream.Collectors;
 
 public abstract class PluginAPI {
 
-    private List<Command> commands;
+    private static List<Command> commands;
     private Notifier notifier;
 
-    public void setCommands(List<Command> commands) {
-        this.commands = commands;
+    public static void setCommands(List<Command> newCommands) {
+        commands = newCommands;
     }
 
-    public List<Command> getCommands() {
+    public static List<Command> getCommands() {
         return commands;
     }
 
-    public void executeCommand(Command command) {
+    public static void executeCommand(Command command) {
         command.run();
     }
 
 
-    public void onConnected() {
-        //TODO notify user in ide(success)
+    public static void onConnected() {
+        Notifier.notifyInformation(null, "Connection established");
     }
 
-    public void onDisconnected() {
-        //TODO notify user in ide(disconnected)
+    public static void onDisconnected() {
+        Notifier.notifyError(null, "Connection closed");
     }
 
 }
