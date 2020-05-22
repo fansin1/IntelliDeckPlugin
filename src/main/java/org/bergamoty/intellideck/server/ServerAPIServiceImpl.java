@@ -36,6 +36,7 @@ public final class ServerAPIServiceImpl implements ServerAPIService {
             runningServer = new Thread(new Server());
             runningServer.start();
         } catch (IOException e) {
+            pluginService.onDisconnected();
             e.printStackTrace();
         }
     }
@@ -49,10 +50,11 @@ public final class ServerAPIServiceImpl implements ServerAPIService {
             in.close();
             out.close();
             client.close();
-            pluginService.onDisconnected(); // telling plugin that server is going to stop
-            runningServer.interrupt(); // interrupting server thread
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            pluginService.onDisconnected(); // telling plugin that server is going to stop
+            runningServer.interrupt(); // interrupting server thread
         }
     }
 
