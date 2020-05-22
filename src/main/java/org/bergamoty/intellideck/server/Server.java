@@ -8,10 +8,6 @@ public class Server implements Runnable {
         try {
             while (!ServerAPI.client.isClosed()) {
                 String entry = ServerAPI.in.readUTF();
-                if (entry.equalsIgnoreCase("pass")) {
-                    continue;
-                }
-
 
             }
         } catch (IOException e) {
