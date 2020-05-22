@@ -2,6 +2,7 @@ package org.bergamoty.intellideck.server;
 
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.components.ServiceManager;
+import org.bergamoty.intellideck.plugin.Command;
 import org.bergamoty.intellideck.plugin.PluginAPIServiceImpl;
 
 import java.io.DataInputStream;
@@ -9,6 +10,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 @Service
 public final class ServerAPIServiceImpl implements ServerAPIService {
@@ -50,6 +52,22 @@ public final class ServerAPIServiceImpl implements ServerAPIService {
             pluginService.onDisconnected(); // telling plugin that server is going to stop
             runningServer.interrupt(); // interrupting server thread
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCommands() {
+        PluginAPIServiceImpl pluginService = ServiceManager.getService(PluginAPIServiceImpl.class);
+        ArrayList<Command> commands = pluginService.getCommands();
+        StringBuilder allCommands = new StringBuilder();
+        for (Command command : commands) {
+            allCommands.append(command.getName());
+        }
+        try {
+            out.writeUTF(allCommands.toString());
+            out.flush();
+        } catch (IOException e) {
+            pluginService.onDisconnected();
             e.printStackTrace();
         }
     }
