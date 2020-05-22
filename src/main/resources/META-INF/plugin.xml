@@ -21,9 +21,9 @@
     <actions>
         <!-- Add your actions here -->
 
-        <action id="org.bergamoty.intellideck.plugin.PluginStarter"
-                class="org.bergamoty.intellideck.plugin.PluginStarter" text="Control IntelliDeck Server"
-                description="IntelliDeck button;" icon="/icons/probot.svg">
+        <action id="org.bergamoty.intellideck.plugin.PluginButton"
+                class="org.bergamoty.intellideck.plugin.PluginButton" text="Control IntelliDeck Server"
+                description="IntelliDeck button;" icon="/icons/plugOff.svg">
             <add-to-group group-id="ToolbarRunGroup" anchor="last"/>
         </action>
 
