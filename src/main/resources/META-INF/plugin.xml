@@ -11,10 +11,9 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <applicationService serviceInterface="org.bergamoty.intellideck.plugin.PluginService"
-                            serviceImplementation="org.bergamoty.intellideck.plugin.PluginServiceImpl"/>
-        <applicationService serviceInterface="org.bergamoty.intellideck.server.ServerAPI"
-                            serviceImplementation="org.bergamoty.intellideck.server.ServerAPIImpl"/>
+
+        <applicationService serviceInterface="org.bergamoty.intellideck.server.ServerAPIService"
+                            serviceImplementation="org.bergamoty.intellideck.server.ServerAPIServiceImpl"/>
     </extensions>
 
     <actions>
