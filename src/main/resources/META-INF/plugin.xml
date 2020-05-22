@@ -14,6 +14,8 @@
 
         <applicationService serviceInterface="org.bergamoty.intellideck.server.ServerAPIService"
                             serviceImplementation="org.bergamoty.intellideck.server.ServerAPIServiceImpl"/>
+        <applicationService serviceInterface="org.bergamoty.intellideck.plugin.PluginAPIService"
+                            serviceImplementation="org.bergamoty.intellideck.plugin.PluginAPIServiceImpl"/>
     </extensions>
 
     <actions>
