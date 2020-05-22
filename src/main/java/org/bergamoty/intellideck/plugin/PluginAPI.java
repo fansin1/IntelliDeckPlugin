@@ -8,41 +8,28 @@ import java.util.stream.Collectors;
 
 public abstract class PluginAPI {
 
-    private List<Command> commands;
+    private static List<Command> commands;
     private Notifier notifier;
 
-    public void setCommands(List<Command> commands) {
-        this.commands = commands;
+    public static void setCommands(List<Command> newCommands) {
+        commands = newCommands;
     }
 
-    public List<Command> getCommands() {
+    public static List<Command> getCommands() {
         return commands;
     }
 
-    public boolean executeCommand(String commandName) {
-        List<Command> result = commands
-                .stream()
-                .filter(command -> commandName.equals(command.getName()))
-                .collect(Collectors.toList());
-        if (result.size() == 0) {
-            //TODO notify user in ide(0)
-            return false;
-        } else if (result.size() > 0) {
-            //TODO notify user in ide(are you ahereli tam)
-            return false;
-        } else {
-            result.get(0).run();
-            return true;
-        }
+    public static void executeCommand(Command command) {
+        command.run();
     }
 
 
-    public void onConnected() {
-        //TODO notify user in ide(success)
+    public static void onConnected() {
+        Notifier.notifyInformation(null, "Connection established");
     }
 
-    public void onDisconnected() {
-        //TODO notify user in ide(disconnected)
+    public static void onDisconnected() {
+        Notifier.notifyError(null, "Connection closed");
     }
 
 }

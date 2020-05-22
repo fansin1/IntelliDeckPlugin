@@ -11,6 +11,11 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
+
+        <applicationService serviceInterface="org.bergamoty.intellideck.server.ServerAPIService"
+                            serviceImplementation="org.bergamoty.intellideck.server.ServerAPIServiceImpl"/>
+        <applicationService serviceInterface="org.bergamoty.intellideck.plugin.PluginAPIService"
+                            serviceImplementation="org.bergamoty.intellideck.plugin.PluginAPIServiceImpl"/>
     </extensions>
 
     <actions>
@@ -23,11 +28,11 @@
         </action>
 
 
-        <action id="org.bergamoty.intellideck.plugin.Plugin"
+        <!--<action id="org.bergamoty.intellideck.plugin.Plugin"
                 class="org.bergamoty.intellideck.plugin.Plugin" text="RUN VASYA RUN"
                 description="xrdcfhjklnm;" icon="/icons/ubisoft.svg">
             <add-to-group group-id="ToolbarRunGroup" anchor="last"/>
-        </action>
+        </action> -->
 
 
     </actions>
