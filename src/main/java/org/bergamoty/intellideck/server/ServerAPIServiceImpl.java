@@ -12,10 +12,10 @@ import java.net.Socket;
 
 @Service
 public final class ServerAPIServiceImpl implements ServerAPIService {
-    Socket client = null;
-    DataInputStream in = null;
-    DataOutputStream out = null;
-    private Thread runningServer = null;
+    Socket client;
+    DataInputStream in;
+    DataOutputStream out;
+    private Thread runningServer;
 
     public void start() {
         int port = 3333;
@@ -23,7 +23,7 @@ public final class ServerAPIServiceImpl implements ServerAPIService {
         try (ServerSocket server = new ServerSocket(port)) {
             client = server.accept();
             System.out.println("Connection accepted");
-            pluginService.onConnected();
+            pluginService.onConnected(); // telling plugin that everything ok and connected
 
             out = new DataOutputStream(client.getOutputStream());
             System.out.println("DataOutputStream created");
@@ -47,8 +47,8 @@ public final class ServerAPIServiceImpl implements ServerAPIService {
             in.close();
             out.close();
             client.close();
-            pluginService.onDisconnected();
-            runningServer.interrupt();
+            pluginService.onDisconnected(); // telling plugin that server is going to stop
+            runningServer.interrupt(); // interrupting server thread
         } catch (IOException e) {
             e.printStackTrace();
         }
