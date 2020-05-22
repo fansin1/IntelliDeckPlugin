@@ -2,7 +2,8 @@
 .idea/shelf/
 .idea/workspace.xml
 # java version fix
-.idea/*
+.idea/gradle.xml
+.idea/misc.xml
 # Datasource local storage ignored files
 .idea/dataSources/
 .idea/dataSources.local.xml
