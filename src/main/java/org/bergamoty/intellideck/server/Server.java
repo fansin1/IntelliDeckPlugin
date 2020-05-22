@@ -1,13 +1,16 @@
 package org.bergamoty.intellideck.server;
 
+import com.intellij.openapi.components.ServiceManager;
+
 import java.io.IOException;
 
 public class Server implements Runnable {
     @Override
     public void run() {
         try {
-            while (!ServerAPI.client.isClosed()) {
-                String entry = ServerAPI.in.readUTF();
+            ServerAPIServiceImpl serverService = ServiceManager.getService(ServerAPIServiceImpl.class);
+            while (serverService.client.isClosed()) {
+                String entry = serverService.in.readUTF();
                 if (entry.equalsIgnoreCase("pass")) {
                     continue;
                 }
