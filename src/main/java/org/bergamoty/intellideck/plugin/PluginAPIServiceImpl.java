@@ -11,8 +11,8 @@ import java.util.Objects;
 
 @Service
 public final class PluginAPIServiceImpl implements PluginAPIService {
-    private ArrayList<Command> commands;
-    private Notifier notifier;
+    private final ArrayList<Command> commands;
+    private final Notifier notifier;
     private final Project project;
     private final RunManager runManager;
 
@@ -27,7 +27,7 @@ public final class PluginAPIServiceImpl implements PluginAPIService {
     }
 
 
-    public void updateCommands(List<Command> newCommands) {
+    public void updateCommands() {
         commands.clear();
         List<RunConfiguration> runConfigurations = runManager.getAllConfigurationsList();
         runConfigurations.forEach((runConfiguration) -> commands.add(new RunCommand(runConfiguration, runManager)));
