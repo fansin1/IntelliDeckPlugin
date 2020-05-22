@@ -34,7 +34,7 @@ public final class PluginAPIServiceImpl implements PluginAPIService {
         notifier.notifyInformation(null, "Command list updated");
     }
 
-    public List<Command> getCommands() {
+    public ArrayList<Command> getCommands() {
         return commands;
     }
 
