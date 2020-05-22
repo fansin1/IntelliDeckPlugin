@@ -64,6 +64,7 @@ public final class ServerAPIServiceImpl implements ServerAPIService {
         StringBuilder allCommands = new StringBuilder();
         for (Command command : commands) {
             allCommands.append(command.getName());
+            allCommands.append(" ");
         }
         try {
             out.writeUTF(allCommands.toString());
