@@ -17,6 +17,7 @@ public final class ServerAPIServiceImpl {
     private DataInputStream in;
     private DataOutputStream out;
     private Thread runningServer;
+    private ArrayList<Command> allowedCommands;
 
     public static ServerAPIServiceImpl getInstance() {
         return ServiceManager.getService(ServerAPIServiceImpl.class);
@@ -44,6 +45,7 @@ public final class ServerAPIServiceImpl {
     }
 
     public void updateCommands(ArrayList<Command> commands) {
+        allowedCommands = commands;
         StringBuilder allCommands = new StringBuilder();
         for (Command command : commands) {
             allCommands.append(command.getName());
@@ -70,15 +72,7 @@ public final class ServerAPIServiceImpl {
         this.out = out;
     }
 
-    public Socket getClient() {
-        return client;
-    }
-
-    public DataInputStream getIn() {
-        return in;
-    }
-
-    public DataOutputStream getOut() {
-        return out;
+    public ArrayList<Command> getAllowedCommands() {
+        return this.allowedCommands;
     }
 }

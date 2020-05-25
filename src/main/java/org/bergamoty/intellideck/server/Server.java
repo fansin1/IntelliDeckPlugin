@@ -52,21 +52,19 @@ public class Server implements Runnable {
             }
         }, EXIT {
             public void exec(String... args) {
-                ServerAPIServiceImpl serverService = ServiceManager.getService(ServerAPIServiceImpl.class);
-                serverService.stop();
+                ServerAPIServiceImpl.getInstance().stop();
             }
         };
 
         public abstract void exec(String... args);
 
         void sendCommand(String commandName) {
-            PluginAPIServiceImpl pluginService = ServiceManager.getService(PluginAPIServiceImpl.class);
-            ArrayList<Command> allowedCommand = pluginService.getCommands();
+            ArrayList<Command> allowedCommand = ServerAPIServiceImpl.getInstance().getAllowedCommands();
             List<Command> result = allowedCommand
                     .stream()
                     .filter(command -> command.getName().equalsIgnoreCase(commandName))
                     .collect(Collectors.toList());
-            pluginService.executeCommand(result.get(0));
+            PluginAPIServiceImpl.getInstance().executeCommand(result.get(0));
         }
     }
 }
