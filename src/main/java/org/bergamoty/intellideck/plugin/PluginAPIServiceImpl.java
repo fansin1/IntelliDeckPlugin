@@ -57,6 +57,7 @@ public class PluginAPIServiceImpl {
 
     public void onServerStarted() {
         notifier.notifyInformation(null, "Server started");
+        updateCommands();
         ServerAPIServiceImpl.getInstance().updateCommands(commands);
     }
 
