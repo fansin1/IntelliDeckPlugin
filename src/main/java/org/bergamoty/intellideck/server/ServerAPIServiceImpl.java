@@ -8,11 +8,15 @@ import org.bergamoty.intellideck.plugin.PluginAPIServiceImpl;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
 @Service
 public final class ServerAPIServiceImpl {
+    private static final int PORT = 3333;
+
+    private ServerSocket serverSocket;
     private Socket client;
     private DataInputStream in;
     private DataOutputStream out;
@@ -25,8 +29,16 @@ public final class ServerAPIServiceImpl {
         return ServiceManager.getService(ServerAPIServiceImpl.class);
     }
 
+    public ServerAPIServiceImpl() {
+        try {
+            serverSocket = new ServerSocket(PORT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void start() {
-        livingServer = new Server();
+        livingServer = new Server(serverSocket);
         runningServer = new Thread(livingServer);
         runningServer.start();
     }

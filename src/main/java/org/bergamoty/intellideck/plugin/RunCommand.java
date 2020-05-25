@@ -6,6 +6,7 @@ import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.execution.executors.DefaultDebugExecutor;
 import com.intellij.execution.executors.DefaultRunExecutor;
 import com.intellij.execution.runners.ExecutionUtil;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +36,9 @@ public class RunCommand implements Command {
         RunnerAndConfigurationSettings runConfig = runManager.findConfigurationByName(runConfiguration.getName());
         Executor executor = DefaultRunExecutor.getRunExecutorInstance();
         ExecutionTarget target = getExecutionTarget(runConfiguration.getProject(), Objects.requireNonNull(runConfig));
-        ExecutionUtil.runConfiguration(runConfig, executor, target);
+        ApplicationManager.getApplication().invokeLater(() ->
+                ExecutionUtil.runConfiguration(runConfig, executor, target)
+        );
     }
 
     @NotNull
@@ -51,5 +54,4 @@ public class RunCommand implements Command {
         }
         return active;
     }
-
 }

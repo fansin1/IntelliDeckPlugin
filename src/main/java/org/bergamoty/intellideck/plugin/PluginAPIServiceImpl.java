@@ -42,7 +42,7 @@ public class PluginAPIServiceImpl {
         notifier.notifyInformation(null, "Command list updated");
     }
 
-        public void executeCommand(Command command) {
+    public void executeCommand(Command command) {
         notifier.notifyInformation(null, "Command " + command.getName() + " ran remotely");
         command.run();
     }
@@ -64,6 +64,4 @@ public class PluginAPIServiceImpl {
     public void onServerStopped() {
         notifier.notifyError(null, "Server stopped");
     }
-
-
 }

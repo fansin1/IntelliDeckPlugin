@@ -17,14 +17,12 @@ public class Server implements Runnable {
     private ServerSocket serverSocket;
     private boolean isStopped;
 
+    public Server(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
+    }
+
     @Override
     public void run() {
-        int port = 3333;
-        try {
-            setServerSocket(port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         try {
             Socket client = serverSocket.accept();
             System.out.println("Connection accepted");
@@ -42,6 +40,7 @@ public class Server implements Runnable {
             ServerAPIServiceImpl.getInstance().setConnected(true);
 
             while (!client.isClosed()) {
+                // TODO sometimes read when nothing to read (java.io.EOFException)
                 String entry = in.readUTF();
 
                 String[] terms = entry.split(" ");
@@ -54,12 +53,13 @@ public class Server implements Runnable {
             if (!isStopped) {
                 ServerAPIServiceImpl.getInstance().start();
             }
+            e.printStackTrace();
         }
     }
 
     public void closeServerSocket() {
         isStopped = true;
-        try {
+/*        try {
             serverSocket.close();
         } catch (IOException e) {
             try {
@@ -67,11 +67,7 @@ public class Server implements Runnable {
             } catch (IOException ex) {
                 // vse ne ochen' horosho
             }
-        }
-    }
-
-    public void setServerSocket(int port) throws IOException {
-        this.serverSocket = new ServerSocket(port);
+        }*/
     }
 
     private enum MainTerms {
