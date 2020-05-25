@@ -8,15 +8,14 @@ import org.bergamoty.intellideck.plugin.PluginAPIServiceImpl;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
 @Service
 public final class ServerAPIServiceImpl {
-    Socket client;
-    DataInputStream in;
-    DataOutputStream out;
+    private Socket client;
+    private DataInputStream in;
+    private DataOutputStream out;
     private Thread runningServer;
 
     public static ServerAPIServiceImpl getInstance() {
@@ -24,30 +23,12 @@ public final class ServerAPIServiceImpl {
     }
 
     public void start() {
-        int port = 3333;
-        PluginAPIServiceImpl pluginService = ServiceManager.getService(PluginAPIServiceImpl.class);
-        try (ServerSocket server = new ServerSocket(port)) {
-            client = server.accept();
-            System.out.println("Connection accepted");
-            pluginService.onConnected(); // telling plugin that everything ok and connected
-
-            out = new DataOutputStream(client.getOutputStream());
-            System.out.println("DataOutputStream created");
-
-            in = new DataInputStream(client.getInputStream());
-            System.out.println("DataInputStream created");
-
-            runningServer = new Thread(new Server());
-            runningServer.start();
-        } catch (IOException e) {
-            pluginService.onDisconnected();
-            e.printStackTrace();
-        }
+        runningServer = new Thread(new Server());
+        runningServer.start();
     }
 
     public void stop() {
         System.out.println("Stopping server...");
-        PluginAPIServiceImpl pluginService = ServiceManager.getService(PluginAPIServiceImpl.class);
         try {
             out.writeUTF("Plugin requested stopping server");
             out.flush();
@@ -57,14 +38,12 @@ public final class ServerAPIServiceImpl {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            pluginService.onDisconnected(); // telling plugin that server is going to stop
+            PluginAPIServiceImpl.getInstance().onDisconnected(); // telling plugin that server is going to stop
             runningServer.interrupt(); // interrupting server thread
         }
     }
 
-    public void updateCommands() {
-        PluginAPIServiceImpl pluginService = ServiceManager.getService(PluginAPIServiceImpl.class);
-        ArrayList<Command> commands = pluginService.getCommands();
+    public void updateCommands(ArrayList<Command> commands) {
         StringBuilder allCommands = new StringBuilder();
         for (Command command : commands) {
             allCommands.append(command.getName());
@@ -74,8 +53,32 @@ public final class ServerAPIServiceImpl {
             out.writeUTF(allCommands.toString());
             out.flush();
         } catch (IOException e) {
-            pluginService.onDisconnected();
+            PluginAPIServiceImpl.getInstance().onDisconnected();
             e.printStackTrace();
         }
+    }
+
+    public void setClient(Socket client) {
+        this.client = client;
+    }
+
+    public void setIn(DataInputStream in) {
+        this.in = in;
+    }
+
+    public void setOut(DataOutputStream out) {
+        this.out = out;
+    }
+
+    public Socket getClient() {
+        return client;
+    }
+
+    public DataInputStream getIn() {
+        return in;
+    }
+
+    public DataOutputStream getOut() {
+        return out;
     }
 }
