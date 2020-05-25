@@ -17,6 +17,7 @@ public final class ServerAPIServiceImpl {
     private DataInputStream in;
     private DataOutputStream out;
     private Thread runningServer;
+    private Server livingServer;
     private ArrayList<Command> allowedCommands;
     private boolean isConnected;
 
@@ -25,7 +26,8 @@ public final class ServerAPIServiceImpl {
     }
 
     public void start() {
-        runningServer = new Thread(new Server());
+        livingServer = new Server();
+        runningServer = new Thread(livingServer);
         runningServer.start();
     }
 
@@ -44,7 +46,7 @@ public final class ServerAPIServiceImpl {
         } finally {
             PluginAPIServiceImpl.getInstance().onDisconnected(); // telling plugin that server is going to stop
             setConnected(false);
-            runningServer.interrupt(); // interrupting server thread
+            livingServer.closeServerSocket();
         }
     }
 

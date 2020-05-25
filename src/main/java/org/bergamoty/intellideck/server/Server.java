@@ -14,12 +14,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Server implements Runnable {
+    private ServerSocket serverSocket;
+    private boolean isStopped;
+
     @Override
     public void run() {
         int port = 3333;
-
-        try (ServerSocket server = new ServerSocket(port)) {
-            Socket client = server.accept();
+        try {
+            setServerSocket(port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            Socket client = serverSocket.accept();
             System.out.println("Connection accepted");
             PluginAPIServiceImpl.getInstance().onConnected(); // telling plugin that everything ok and connected
             ServerAPIServiceImpl.getInstance().setClient(client);
@@ -44,8 +51,23 @@ public class Server implements Runnable {
         } catch (IOException e) {
             PluginAPIServiceImpl.getInstance().onDisconnected();
             ServerAPIServiceImpl.getInstance().setConnected(false);
-            ServerAPIServiceImpl.getInstance().start();
+            if (!isStopped) {
+                ServerAPIServiceImpl.getInstance().start();
+            }
         }
+    }
+
+    public void closeServerSocket() {
+        isStopped = true;
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            // vse horosho
+        }
+    }
+
+    public void setServerSocket(int port) throws IOException {
+        this.serverSocket = new ServerSocket(port);
     }
 
     private enum MainTerms {
