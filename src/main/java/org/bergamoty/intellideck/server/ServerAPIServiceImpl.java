@@ -13,11 +13,15 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 @Service
-public final class ServerAPIServiceImpl implements ServerAPIService {
+public final class ServerAPIServiceImpl {
     Socket client;
     DataInputStream in;
     DataOutputStream out;
     private Thread runningServer;
+
+    public static ServerAPIServiceImpl getInstance() {
+        return ServiceManager.getService(ServerAPIServiceImpl.class);
+    }
 
     void start() {
         int port = 3333;
