@@ -5,6 +5,7 @@ import com.intellij.execution.ProgramRunnerUtil;
 import com.intellij.execution.RunManager;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.execution.executors.DefaultDebugExecutor;
+import com.intellij.execution.executors.DefaultRunExecutor;
 
 import java.util.Objects;
 
@@ -28,6 +29,7 @@ public class RunCommand implements Command {
     @Override
     public void run() {
         ProgramRunnerUtil.executeConfiguration(Objects.requireNonNull(runManager.findSettings(runConfiguration)),
-                DefaultDebugExecutor.getDebugExecutorInstance());
+                DefaultRunExecutor.getRunExecutorInstance());
     }
+
 }
