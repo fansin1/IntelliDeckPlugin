@@ -11,6 +11,7 @@ import java.util.Objects;
 
 public class RunCommand implements Command {
 
+    private final static String COMMAND_TYPE="Run-";
     private final RunConfiguration runConfiguration;
     private final RunManager runManager;
 
@@ -21,7 +22,7 @@ public class RunCommand implements Command {
 
     @Override
     public String getName() {
-        return runConfiguration.getName();
+        return COMMAND_TYPE + runConfiguration.getName();
     }
 
     @Override
