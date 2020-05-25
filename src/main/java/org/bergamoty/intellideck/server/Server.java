@@ -21,7 +21,7 @@ public class Server implements Runnable {
 
                 String[] terms = entry.split(" ");
 
-                MainTerms.valueOf(terms[0]).exec(Arrays.copyOfRange(terms, 1, terms.length));
+                MainTerms.valueOf(terms[0].toUpperCase()).exec(Arrays.copyOfRange(terms, 1, terms.length));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,7 +31,7 @@ public class Server implements Runnable {
     private enum MainTerms {
         CLICK {
             public void exec(String... args) {
-                sendCommand(args[0]);
+                sendCommand(args[0].toLowerCase());
             }
         }, EXIT {
             public void exec(String... args) {
