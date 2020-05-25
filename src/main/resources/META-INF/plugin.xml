@@ -12,10 +12,11 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
 
-        <applicationService serviceInterface="org.bergamoty.intellideck.server.ServerAPIService"
+        <applicationService serviceInterface="org.bergamoty.intellideck.server.ServerAPIServiceImpl"
                             serviceImplementation="org.bergamoty.intellideck.server.ServerAPIServiceImpl"/>
-        <applicationService serviceInterface="org.bergamoty.intellideck.plugin.PluginAPIService"
+        <applicationService serviceInterface="org.bergamoty.intellideck.plugin.PluginAPIServiceImpl"
                             serviceImplementation="org.bergamoty.intellideck.plugin.PluginAPIServiceImpl"/>
+
     </extensions>
 
     <actions>
@@ -27,13 +28,10 @@
             <add-to-group group-id="ToolbarRunGroup" anchor="last"/>
         </action>
 
-
-        <!--<action id="org.bergamoty.intellideck.plugin.Plugin"
-                class="org.bergamoty.intellideck.plugin.Plugin" text="RUN VASYA RUN"
-                description="xrdcfhjklnm;" icon="/icons/ubisoft.svg">
-            <add-to-group group-id="ToolbarRunGroup" anchor="last"/>
-        </action> -->
-
-
     </actions>
+
+    <projectListeners>
+        <listener class="org.bergamoty.intellideck.plugin.ConfigurationsListener" topic="com.intellij.execution.RunManagerListener"/>
+        <listener class="org.bergamoty.intellideck.plugin.ProjectListener" topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </projectListeners>
 </idea-plugin>

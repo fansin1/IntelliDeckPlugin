@@ -3,32 +3,38 @@ package org.bergamoty.intellideck.plugin;
 import com.intellij.execution.RunManager;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.openapi.components.Service;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
-public final class PluginAPIServiceImpl implements PluginAPIService {
-    private final ArrayList<Command> commands;
+public class PluginAPIServiceImpl {
     private final Notifier notifier;
-    private final Project project;
-    private final RunManager runManager;
+    private ArrayList<Command> commands;
+    private Project project;
+    private RunManager runManager;
 
-
-    public PluginAPIServiceImpl(Project project) {
-        this.project = project;
+    public PluginAPIServiceImpl() {
         notifier = new Notifier();
-        runManager = RunManager.getInstance(Objects.requireNonNull(this.project));
-        List<RunConfiguration> runConfigurations = runManager.getAllConfigurationsList();
-        commands = new ArrayList<Command>();
-
     }
 
+    public static PluginAPIServiceImpl getInstance() {
+        return ServiceManager.getService(PluginAPIServiceImpl.class);
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+        this.commands = new ArrayList<>();
+    }
 
     public void updateCommands() {
+        if (project == null) {
+            return;
+        }
         commands.clear();
+        runManager = RunManager.getInstance(project);
         List<RunConfiguration> runConfigurations = runManager.getAllConfigurationsList();
         runConfigurations.forEach((runConfiguration) -> commands.add(new RunCommand(runConfiguration, runManager)));
         notifier.notifyInformation(null, "Command list updated");
@@ -42,7 +48,6 @@ public final class PluginAPIServiceImpl implements PluginAPIService {
         notifier.notifyInformation(null, "Command " + command.getName() + " ran remotely");
         command.run();
     }
-
 
     public void onConnected() {
         notifier.notifyInformation(null, "Connection established");
