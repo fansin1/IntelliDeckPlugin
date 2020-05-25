@@ -23,7 +23,7 @@ public final class ServerAPIServiceImpl {
         return ServiceManager.getService(ServerAPIServiceImpl.class);
     }
 
-    void start() {
+    public void start() {
         int port = 3333;
         PluginAPIServiceImpl pluginService = ServiceManager.getService(PluginAPIServiceImpl.class);
         try (ServerSocket server = new ServerSocket(port)) {
@@ -45,7 +45,7 @@ public final class ServerAPIServiceImpl {
         }
     }
 
-    void stop() {
+    public void stop() {
         System.out.println("Stopping server...");
         PluginAPIServiceImpl pluginService = ServiceManager.getService(PluginAPIServiceImpl.class);
         try {
@@ -62,7 +62,7 @@ public final class ServerAPIServiceImpl {
         }
     }
 
-    void updateCommands() {
+    public void updateCommands() {
         PluginAPIServiceImpl pluginService = ServiceManager.getService(PluginAPIServiceImpl.class);
         ArrayList<Command> commands = pluginService.getCommands();
         StringBuilder allCommands = new StringBuilder();
