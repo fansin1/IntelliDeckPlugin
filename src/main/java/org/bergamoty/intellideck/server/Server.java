@@ -22,7 +22,6 @@ public class Server implements Runnable {
             System.out.println("Connection accepted");
             PluginAPIServiceImpl.getInstance().onConnected(); // telling plugin that everything ok and connected
             ServerAPIServiceImpl.getInstance().setClient(client);
-            ServerAPIServiceImpl.getInstance().setConnected(true);
 
             DataOutputStream out = new DataOutputStream(client.getOutputStream());
             System.out.println("DataOutputStream created");
@@ -31,6 +30,8 @@ public class Server implements Runnable {
             DataInputStream in = new DataInputStream(client.getInputStream());
             System.out.println("DataInputStream created");
             ServerAPIServiceImpl.getInstance().setIn(in);
+
+            ServerAPIServiceImpl.getInstance().setConnected(true);
 
             while (!client.isClosed()) {
                 String entry = in.readUTF();

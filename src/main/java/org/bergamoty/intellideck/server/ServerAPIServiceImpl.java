@@ -32,11 +32,13 @@ public final class ServerAPIServiceImpl {
     public void stop() {
         System.out.println("Stopping server...");
         try {
-            out.writeUTF("Plugin requested stopping server");
-            out.flush();
-            in.close();
-            out.close();
-            client.close();
+            if (isConnected()) {
+                out.writeUTF("Plugin requested stopping server");
+                out.flush();
+                in.close();
+                out.close();
+                client.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
