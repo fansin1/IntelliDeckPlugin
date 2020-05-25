@@ -17,13 +17,6 @@ public class Server implements Runnable {
     @Override
     public void run() {
         int port = 3333;
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            System.out.println("interrupted exception");
-        }
-
-        MainTerms.valueOf("CLICK").exec("Run-test");
 
         try (ServerSocket server = new ServerSocket(port)) {
             Socket client = server.accept();
@@ -51,7 +44,7 @@ public class Server implements Runnable {
         } catch (IOException e) {
             PluginAPIServiceImpl.getInstance().onDisconnected();
             ServerAPIServiceImpl.getInstance().setConnected(false);
-            e.printStackTrace();
+            ServerAPIServiceImpl.getInstance().start();
         }
     }
 
