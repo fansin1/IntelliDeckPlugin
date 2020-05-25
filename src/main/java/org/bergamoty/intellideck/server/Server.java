@@ -62,7 +62,11 @@ public class Server implements Runnable {
         try {
             serverSocket.close();
         } catch (IOException e) {
-            // vse horosho
+            try {
+                serverSocket.close();
+            } catch (IOException ex) {
+                // vse ne ochen' horosho
+            }
         }
     }
 
