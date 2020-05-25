@@ -1,6 +1,5 @@
 package org.bergamoty.intellideck.server;
 
-import com.intellij.openapi.components.ServiceManager;
 import org.bergamoty.intellideck.plugin.Command;
 import org.bergamoty.intellideck.plugin.PluginAPIServiceImpl;
 
@@ -23,6 +22,7 @@ public class Server implements Runnable {
             System.out.println("Connection accepted");
             PluginAPIServiceImpl.getInstance().onConnected(); // telling plugin that everything ok and connected
             ServerAPIServiceImpl.getInstance().setClient(client);
+            ServerAPIServiceImpl.getInstance().setConnected(true);
 
             DataOutputStream out = new DataOutputStream(client.getOutputStream());
             System.out.println("DataOutputStream created");
@@ -41,6 +41,7 @@ public class Server implements Runnable {
             }
         } catch (IOException e) {
             PluginAPIServiceImpl.getInstance().onDisconnected();
+            ServerAPIServiceImpl.getInstance().setConnected(false);
             e.printStackTrace();
         }
     }

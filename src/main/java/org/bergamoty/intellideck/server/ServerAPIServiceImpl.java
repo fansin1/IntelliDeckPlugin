@@ -18,6 +18,7 @@ public final class ServerAPIServiceImpl {
     private DataOutputStream out;
     private Thread runningServer;
     private ArrayList<Command> allowedCommands;
+    private boolean isConnected;
 
     public static ServerAPIServiceImpl getInstance() {
         return ServiceManager.getService(ServerAPIServiceImpl.class);
@@ -40,23 +41,15 @@ public final class ServerAPIServiceImpl {
             e.printStackTrace();
         } finally {
             PluginAPIServiceImpl.getInstance().onDisconnected(); // telling plugin that server is going to stop
+            setConnected(false);
             runningServer.interrupt(); // interrupting server thread
         }
     }
 
     public void updateCommands(ArrayList<Command> commands) {
-        allowedCommands = commands;
-        StringBuilder allCommands = new StringBuilder();
-        for (Command command : commands) {
-            allCommands.append(command.getName());
-            allCommands.append(" ");
-        }
-        try {
-            out.writeUTF(allCommands.toString());
-            out.flush();
-        } catch (IOException e) {
-            PluginAPIServiceImpl.getInstance().onDisconnected();
-            e.printStackTrace();
+        updateLocalCommands(commands);
+        if (isConnected()) {
+            updateRemoteCommands(commands);
         }
     }
 
@@ -74,5 +67,32 @@ public final class ServerAPIServiceImpl {
 
     public ArrayList<Command> getAllowedCommands() {
         return this.allowedCommands;
+    }
+
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    public void setConnected(boolean connected) {
+        isConnected = connected;
+    }
+
+    private void updateLocalCommands(ArrayList<Command> commands) {
+        allowedCommands = commands;
+    }
+
+    private void updateRemoteCommands(ArrayList<Command> commands) {
+        StringBuilder allCommands = new StringBuilder();
+        for (Command command : commands) {
+            allCommands.append(command.getName());
+            allCommands.append(" ");
+        }
+        try {
+            out.writeUTF(allCommands.toString());
+            out.flush();
+        } catch (IOException e) {
+            PluginAPIServiceImpl.getInstance().onDisconnected();
+            e.printStackTrace();
+        }
     }
 }
