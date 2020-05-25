@@ -5,6 +5,7 @@ import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
+import org.bergamoty.intellideck.server.ServerAPIServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +38,11 @@ public class PluginAPIServiceImpl {
         runManager = RunManager.getInstance(project);
         List<RunConfiguration> runConfigurations = runManager.getAllConfigurationsList();
         runConfigurations.forEach((runConfiguration) -> commands.add(new RunCommand(runConfiguration, runManager)));
+        ServerAPIServiceImpl.getInstance().updateCommands(commands);
         notifier.notifyInformation(null, "Command list updated");
     }
 
-    public ArrayList<Command> getCommands() {
-        return commands;
-    }
-
-    public void executeCommand(Command command) {
+        public void executeCommand(Command command) {
         notifier.notifyInformation(null, "Command " + command.getName() + " ran remotely");
         command.run();
     }
@@ -56,5 +54,15 @@ public class PluginAPIServiceImpl {
     public void onDisconnected() {
         notifier.notifyError(null, "Connection closed");
     }
+
+    public void onServerStarted() {
+        notifier.notifyInformation(null, "Server started");
+        ServerAPIServiceImpl.getInstance().updateCommands(commands);
+    }
+
+    public void onServerStopped() {
+        notifier.notifyError(null, "Server stopped");
+    }
+
 
 }

@@ -12,10 +12,10 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
 
-        <applicationService serviceInterface="org.bergamoty.intellideck.server.ServerAPIServiceImpl"
-                            serviceImplementation="org.bergamoty.intellideck.server.ServerAPIServiceImpl"/>
-        <applicationService serviceInterface="org.bergamoty.intellideck.plugin.PluginAPIServiceImpl"
-                            serviceImplementation="org.bergamoty.intellideck.plugin.PluginAPIServiceImpl"/>
+        <applicationService
+                serviceImplementation="org.bergamoty.intellideck.server.ServerAPIServiceImpl"/>
+        <applicationService
+                serviceImplementation="org.bergamoty.intellideck.plugin.PluginAPIServiceImpl"/>
 
     </extensions>
 

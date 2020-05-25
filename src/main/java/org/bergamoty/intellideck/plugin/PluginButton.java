@@ -5,6 +5,8 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vcs.NotIgnored;
 import com.thoughtworks.qdox.model.expression.Not;
+import org.bergamoty.intellideck.server.ServerAPIService;
+import org.bergamoty.intellideck.server.ServerAPIServiceImpl;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -21,10 +23,12 @@ public class PluginButton extends AnAction {
     public void actionPerformed(@NotNull AnActionEvent e) {
         buttonState = !buttonState;
         if(buttonState){
-            notifier.notifyInformation(null, "Server started");
+            ServerAPIServiceImpl.getInstance().start();
+            PluginAPIServiceImpl.getInstance().onServerStarted();
         }
         else{
-            notifier.notifyError(null, "Server stopped");
+            ServerAPIServiceImpl.getInstance().stop();
+            PluginAPIServiceImpl.getInstance().onServerStopped();
         }
     }
 
