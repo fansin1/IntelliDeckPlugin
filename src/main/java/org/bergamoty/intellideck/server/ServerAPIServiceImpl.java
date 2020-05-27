@@ -65,7 +65,7 @@ public final class ServerAPIServiceImpl {
     public void updateCommands(ArrayList<Command> commands) {
         updateLocalCommands(commands);
         if (isConnected()) {
-            updateRemoteCommands(commands);
+            updateRemoteCommands();
         }
     }
 
@@ -97,9 +97,9 @@ public final class ServerAPIServiceImpl {
         allowedCommands = commands;
     }
 
-    private void updateRemoteCommands(ArrayList<Command> commands) {
+    void updateRemoteCommands() {
         StringBuilder allCommands = new StringBuilder();
-        for (Command command : commands) {
+        for (Command command : allowedCommands) {
             allCommands.append(command.getName());
             allCommands.append(" ");
         }

@@ -39,6 +39,8 @@ public class Server implements Runnable {
 
             ServerAPIServiceImpl.getInstance().setConnected(true);
 
+            ServerAPIServiceImpl.getInstance().updateRemoteCommands();
+
             while (!client.isClosed()) {
                 // TODO sometimes read when nothing to read (java.io.EOFException)
                 String entry = in.readUTF();
