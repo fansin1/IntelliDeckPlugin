@@ -16,73 +16,60 @@
    version="1.1"
    id="svg2097"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="appIcon.svg">
+   sodipodi:docname="appIconNew.svg">
   <defs
      id="defs2091">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient6501">
+       id="linearGradient907">
       <stop
-         style="stop-color:#cd3333;stop-opacity:1;"
+         style="stop-color:#2f79a4;stop-opacity:1;"
          offset="0"
-         id="stop6497" />
+         id="stop903" />
       <stop
-         style="stop-color:#cd3333;stop-opacity:0;"
+         style="stop-color:#2f79a4;stop-opacity:0;"
          offset="1"
-         id="stop6499" />
+         id="stop905" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient6493">
-      <stop
-         style="stop-color:#cd3333;stop-opacity:1;"
-         offset="0"
-         id="stop6489" />
-      <stop
-         style="stop-color:#cd3333;stop-opacity:0;"
-         offset="1"
-         id="stop6491" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient6493"
-       id="linearGradient6495"
-       x1="1.7203102"
-       y1="289.90424"
-       x2="5.1865487"
-       y2="293.49567"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-0.06681738,-1.9042922)" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient6501"
+       xlink:href="#linearGradient907"
        id="linearGradient6503"
        x1="5.4371147"
        y1="289.92096"
-       x2="8.9033537"
-       y2="293.52908"
+       x2="10.857761"
+       y2="295.58371"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(0.11693042,-1.9042953)" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient6501"
+       xlink:href="#linearGradient907"
        id="linearGradient6495-6"
        x1="1.7203102"
        y1="289.90424"
-       x2="5.1865487"
-       y2="293.49567"
+       x2="7.5585656"
+       y2="296.01804"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(-0.06681722,1.9674996)" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient6501"
+       xlink:href="#linearGradient907"
        id="linearGradient6495-3"
        x1="1.7203102"
        y1="289.90424"
-       x2="5.1865487"
-       y2="293.49567"
+       x2="6.9070964"
+       y2="295.28305"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(3.8170305,1.9674883)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient907"
+       id="linearGradient911"
+       gradientUnits="userSpaceOnUse"
+       x1="1.6534929"
+       y1="287.99997"
+       x2="6.7233491"
+       y2="293.31192" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -93,7 +80,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="15.839192"
      inkscape:cx="15.989654"
-     inkscape:cy="22.442573"
+     inkscape:cy="19.510156"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -124,15 +111,15 @@
      id="layer1"
      transform="translate(0,-286.41665)">
     <rect
-       style="fill:#3333cd;fill-opacity:1;stroke:none;stroke-width:0.3499907;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#0f496b;fill-opacity:1;stroke:none;stroke-width:0.3499907;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect2642"
        width="8.9347839"
        height="8.6487904"
        x="0.82427472"
        y="287.38391"
-       ry="2.0059562" />
+       ry="1.4547075" />
     <rect
-       style="fill:url(#linearGradient6495);fill-opacity:1;stroke:none;stroke-width:0.16103025;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:url(#linearGradient911);fill-opacity:1;stroke:none;stroke-width:0.16103025;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect2666"
        width="3.4662387"
        height="3.6078384"
