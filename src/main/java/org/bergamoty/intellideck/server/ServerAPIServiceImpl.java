@@ -99,9 +99,11 @@ public final class ServerAPIServiceImpl {
 
     void updateRemoteCommands() {
         StringBuilder allCommands = new StringBuilder();
+        allCommands.append("Tasks ");
+        allCommands.append(allowedCommands.size());
         for (Command command : allowedCommands) {
+            allCommands.append("\n");
             allCommands.append(command.getName());
-            allCommands.append(" ");
         }
         try {
             out.writeUTF(allCommands.toString());
