@@ -5,7 +5,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vcs.NotIgnored;
 import com.thoughtworks.qdox.model.expression.Not;
-import org.bergamoty.intellideck.server.ServerAPIService;
 import org.bergamoty.intellideck.server.ServerAPIServiceImpl;
 import org.jetbrains.annotations.NotNull;
 
