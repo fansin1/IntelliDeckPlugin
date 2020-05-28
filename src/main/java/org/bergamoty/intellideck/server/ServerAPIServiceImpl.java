@@ -58,7 +58,9 @@ public final class ServerAPIServiceImpl {
         } finally {
             PluginAPIServiceImpl.getInstance().onDisconnected(); // telling plugin that server is going to stop
             setConnected(false);
-            livingServer.closeServerSocket();
+            if (livingServer != null) {
+                livingServer.closeServerSocket();
+            }
         }
     }
 
