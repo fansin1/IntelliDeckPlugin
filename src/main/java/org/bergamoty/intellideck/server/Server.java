@@ -75,7 +75,7 @@ public class Server implements Runnable {
     private enum MainTerms {
         CLICK {
             public void exec(String... args) {
-                sendCommand(args[0].toLowerCase());
+                sendCommand(String.join(" ", args));
             }
         }, EXIT {
             public void exec(String... args) {
