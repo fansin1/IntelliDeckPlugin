@@ -38,6 +38,7 @@ public class PluginAPIServiceImpl {
         runManager = RunManager.getInstance(project);
         List<RunConfiguration> runConfigurations = runManager.getAllConfigurationsList();
         runConfigurations.forEach((runConfiguration) -> commands.add(new RunCommand(runConfiguration, runManager)));
+        runConfigurations.forEach((runConfiguration) -> commands.add(new DebugCommand(runConfiguration, runManager)));
         ServerAPIServiceImpl.getInstance().updateCommands(commands);
         notifier.notifyInformation(null, "Command list updated");
     }
