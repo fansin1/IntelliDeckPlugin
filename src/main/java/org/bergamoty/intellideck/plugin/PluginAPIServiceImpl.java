@@ -7,8 +7,13 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import org.bergamoty.intellideck.server.ServerAPIServiceImpl;
 
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PluginAPIServiceImpl {
@@ -56,7 +61,34 @@ public class PluginAPIServiceImpl {
         notifier.notifyError(null, "Connection closed");
     }
 
-    public void onServerStarted() {
+    public void onServerStarted() throws IOException, InterruptedException{
+        if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+            Process myAppProcess = Runtime.getRuntime().exec("netsh.exe advfirewall firewall show rule name=\"IntelliDeck\"");
+            myAppProcess.waitFor();
+            BufferedReader input = new BufferedReader(new InputStreamReader(myAppProcess.getInputStream()));
+
+            boolean check = false;
+            String line = input.readLine();
+            while (line != null) {
+                if (line.contains("IntelliDeck")) {
+                    check = true;
+                }
+                line = input.readLine();
+            }
+
+            if (!check) {
+                JOptionPane.showMessageDialog(null, "Due you are Windows user, you need to let plugin open ports",
+                        "About using our plugin", JOptionPane.INFORMATION_MESSAGE);
+                myAppProcess = Runtime.getRuntime().exec("powershell.exe Start-Process netsh -Argument " +
+                        "'advfirewall firewall add rule name=\"IntelliDeck\" dir=in protocol=tcp localport=3333" +
+                        " action=allow' -verb RunAs");
+                myAppProcess.waitFor();
+                myAppProcess = Runtime.getRuntime().exec("powershell.exe Start-Process netsh -Argument " +
+                        "'advfirewall firewall add rule name=\"IntelliDeck\" dir=out protocol=tcp localport=3333" +
+                        " action=allow' -verb RunAs");
+                myAppProcess.waitFor();
+            }
+        }
         notifier.notifyInformation(null, "Server started");
         updateCommands();
         ServerAPIServiceImpl.getInstance().updateCommands(commands);

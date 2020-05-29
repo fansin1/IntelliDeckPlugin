@@ -9,6 +9,7 @@ import org.bergamoty.intellideck.server.ServerAPIServiceImpl;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class PluginButton extends AnAction {
 
@@ -23,7 +24,11 @@ public class PluginButton extends AnAction {
         buttonState = !buttonState;
         if(buttonState){
             ServerAPIServiceImpl.getInstance().start();
-            PluginAPIServiceImpl.getInstance().onServerStarted();
+            try {
+                PluginAPIServiceImpl.getInstance().onServerStarted();
+            } catch (IOException | InterruptedException ioException) {
+                ioException.printStackTrace();
+            }
         }
         else{
             ServerAPIServiceImpl.getInstance().stop();
