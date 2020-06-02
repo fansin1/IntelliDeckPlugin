@@ -1,12 +1,9 @@
 <idea-plugin>
     <id>org.example.IntelliDeck</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <name>IntelliDeck</name>
+    <vendor email="support@bergamoty.org" url="http://www.bergamoty.org">Bergamoty</vendor>
 
-    <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
-    ]]></description>
+    <description>IntelliDeck allows you to use your Android smartphone as a touchbar.</description>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -14,9 +11,27 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
+
+        <applicationService
+                serviceImplementation="org.bergamoty.intellideck.server.ServerAPIServiceImpl"/>
+        <applicationService
+                serviceImplementation="org.bergamoty.intellideck.plugin.PluginAPIServiceImpl"/>
+
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
+
+        <action id="org.bergamoty.intellideck.plugin.PluginButton"
+                class="org.bergamoty.intellideck.plugin.PluginButton" text="Control IntelliDeck Server"
+                description="IntelliDeck button;" icon="/icons/plugOff.svg">
+            <add-to-group group-id="ToolbarRunGroup" anchor="last"/>
+        </action>
+
     </actions>
+
+    <projectListeners>
+        <listener class="org.bergamoty.intellideck.plugin.ConfigurationsListener" topic="com.intellij.execution.RunManagerListener"/>
+        <listener class="org.bergamoty.intellideck.plugin.ProjectListener" topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </projectListeners>
 </idea-plugin>
